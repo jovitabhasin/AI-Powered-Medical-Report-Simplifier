@@ -1,0 +1,112 @@
+{
+  "info": {
+    "name": "Medical Report Simplifier",
+    "_postman_id": "b754b6f4-c2f0-46d4-b466-c1af7f540001",
+    "description": "Sample requests for the AI-Powered Medical Report Simplifier assignment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Step1 Extract Text",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"CBC: Hemoglobin 10.2 g/dL (Low), WBC 11,200 /uL (High)\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/step1/extract",
+          "host": ["{{baseUrl}}"],
+          "path": ["step1", "extract"]
+        }
+      }
+    },
+    {
+      "name": "Step2 Normalize",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tests_raw\": [\n    \"Hemoglobin 10.2 g/dL (Low)\",\n    \"WBC 11200 /uL (High)\"\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/step2/normalize",
+          "host": ["{{baseUrl}}"],
+          "path": ["step2", "normalize"]
+        }
+      }
+    },
+    {
+      "name": "Step3 Summarize",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tests\": [\n    {\n      \"name\": \"Hemoglobin\",\n      \"value\": 10.2,\n      \"unit\": \"g/dL\",\n      \"status\": \"low\",\n      \"ref_range\": { \"low\": 12.0, \"high\": 15.0 }\n    },\n    {\n      \"name\": \"WBC\",\n      \"value\": 11200,\n      \"unit\": \"/uL\",\n      \"status\": \"high\",\n      \"ref_range\": { \"low\": 4000, \"high\": 11000 }\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/step3/summarize",
+          "host": ["{{baseUrl}}"],
+          "path": ["step3", "summarize"]
+        }
+      }
+    },
+    {
+      "name": "Step4 Final",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tests\": [\n    {\n      \"name\": \"Hemoglobin\",\n      \"value\": 10.2,\n      \"unit\": \"g/dL\",\n      \"status\": \"low\",\n      \"ref_range\": { \"low\": 12.0, \"high\": 15.0 }\n    },\n    {\n      \"name\": \"WBC\",\n      \"value\": 11200,\n      \"unit\": \"/uL\",\n      \"status\": \"high\",\n      \"ref_range\": { \"low\": 4000, \"high\": 11000 }\n    }\n  ],\n  \"summary\": \"Low hemoglobin and high white blood cell count.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/step4/final",
+          "host": ["{{baseUrl}}"],
+          "path": ["step4", "final"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000"
+    }
+  ]
+}
