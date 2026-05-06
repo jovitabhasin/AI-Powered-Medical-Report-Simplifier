@@ -531,6 +531,14 @@ Response:
 }
 ```
 
+## Postman
+
+Import this collection into Postman to test the endpoints without manually typing each request:
+
+```text
+postman/medical-report-simplifier.postman_collection.json
+```
+
 ## Working Backend Demo with ngrok
 
 The assignment allows submitting a working backend demo using a local server exposed through ngrok.
@@ -566,4 +574,3 @@ Append `/docs` to the generated ngrok URL:
 ```text
 https://example-name.ngrok-free.dev/docs
 ```
-
